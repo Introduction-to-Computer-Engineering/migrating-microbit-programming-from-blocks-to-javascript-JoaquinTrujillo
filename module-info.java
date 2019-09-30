@@ -1,21 +1,32 @@
-module microbit9 {let binary = ""
-let decimal = 0
-input.onButtonPressed(Button.A, () => {
-    binary = binary + "1"
-    basic.showString("BINARY+1")
-    decimal = decimal * 2 + 1
+module microbit11 {let index = 0
+let arrayWords: string[] = []
+index = 0
+arrayWords = ["Dog", "Dinosuar", "Teacher", "Coding", "Rabbit", "Car"]
+basic.showLeds(`
+. # # # .
+. . . # .
+. . # . . 
+. . . . .
+. . # . .`)
+basic.pause(100)
+basic.showNumber(1)
+basic.pause(100)
+basic.showNumber(2)
+basic.pause(100)
+basic.showNumber(3)
+basic.pause(100)
+basic.showString(arrayWords[index])
+input.onGesture(Gesture.ScreenDown, () => {
+    basic.showString(arrayWords[index])
 })
-input.onButtonPressed(Button.AB, () => {
-    basic.showNumber(decimal)
-})
-input.onButtonPressed(Button.B, () => {
-    binary = binary + "0"
-    basic.showString("BINARY+0")
-    decimal = decimal * 2
-})
-input.onGesture(Gesture.Shake, () => {
-    binary = "0"
-    decimal = 0
-    basic.showString("CLEAR")
+input.onGesture(Gesture.ScreenDown, () => {
+    led.stopAnimation()
+    basic.clearScreen()
+    if (index < arrayWords.length - 1) {
+        index += 1
+    }
+    else {
+        game.gameOver()
+    }
 })
 }
