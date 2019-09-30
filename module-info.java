@@ -1,2 +1,2 @@
-module microbit71 {
+module microbit72 {
 }
