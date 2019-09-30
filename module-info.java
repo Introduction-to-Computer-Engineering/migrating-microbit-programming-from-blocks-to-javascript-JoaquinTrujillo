@@ -1,38 +1,23 @@
-module microbit4 {input.onGesture(Gesture.Shake, function () {
-    hand = Math.randomRange(0, 3)
-    if (hand == 0) {
-        basic.showLeds(`
-            # # # # #
-            # . . . #
-            # . . . #
-            # . . . #
-            # # # # #
-            `)
-    } else if (hand == 1) {
-        basic.showLeds(`
-            . . . . .
-            . # # # .
-            . # # # .
-            . # # # .
-            . . . . .
-            `)
-    } else {
-        basic.showLeds(`
-            . . . . #
-            . . . # .
-            # # # . .
-            # . # # .
-            # # # . #
-            `)
+module microbit5 {let boxman2 = game.createSprite(0, 0) 
+let boxman: game.LedSprite = null
+input.onButtonPressed(Button.A, function () {
+    for (let i = 0; i < 8; i++){
+        boxman2.move (4)
+        boxman2.turn(Direction.Right, 90)
+        basic.pause(100)
     }
 })
-input.onButtonPressed(Button.A, function () {
-    game.addScore(1)
-    basic.pause(1000)
-    basic.showString("WINS")
-    basic.showNumber(game.score())
+input.onButtonPressed(Button.B, function (){
+    for(let i = 0; i < 8; ++i) {
+        boxman2.move(4)
+        boxman2.turn(Direction.Left, 90)
+        basic.pause(100)
+    }
 })
-let hand = 0
-hand = 0
-
+input.onButtonPressed(Button.AB, function(){
+    for(let i =0; i<1; ++i){
+        boxman2.move(1)
+        boxman2.turn(Direction.Right, 18)
+    }
+})
 }
