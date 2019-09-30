@@ -1,32 +1,71 @@
-module microbit11 {let index = 0
-let arrayWords: string[] = []
-index = 0
-arrayWords = ["Dog", "Dinosuar", "Teacher", "Coding", "Rabbit", "Car"]
-basic.showLeds(`
-. # # # .
-. . . # .
-. . # . . 
-. . . . .
-. . # . .`)
-basic.pause(100)
-basic.showNumber(1)
-basic.pause(100)
-basic.showNumber(2)
-basic.pause(100)
-basic.showNumber(3)
-basic.pause(100)
-basic.showString(arrayWords[index])
-input.onGesture(Gesture.ScreenDown, () => {
-    basic.showString(arrayWords[index])
+module microbit12 {let playerScore = 0
+let videoGame: game.LedSprite = null
+let jumperMan = game.createSprite(2, 4)
+basic.showString("RUN")
+for (let i = 0; i < 10; ++i) {
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+    led.toggle(Math.randomRange(0, 4), Math.randomRange(4, 0))
+    basic.pause(200)
+} basic.showString("A+B2START")
+input.onButtonPressed(Button.A, function () {
+    jumperMan.move(1)
+    playerScore += 1
 })
-input.onGesture(Gesture.ScreenDown, () => {
-    led.stopAnimation()
-    basic.clearScreen()
-    if (index < arrayWords.length - 1) {
-        index += 1
-    }
-    else {
-        game.gameOver()
-    }
+input.onButtonPressed(Button.B, function () {
+    jumperMan.move(-1)
+    playerScore += 1
 })
+input.onGesture(Gesture.Shake, function () {
+    if (playerScore < 100) {
+        basic.showString("TRYAGAIN")
+        basic.showNumber(playerScore)
+    } else {
+        basic.showString("WINNER")
+        basic.showNumber(playerScore)
+    }
+    playerScore = 0
+})
+input.onButtonPressed(Button.AB, function () {
+    for (let i = 0; i < 100; ++i) {
+        basic.showLeds(`
+    . # . # .
+    . . . . . 
+    # . # . .
+    . . . . .
+    . # . # .
+    `)
+        basic.pause(200)
+        basic.showLeds(`
+    . . . . .
+    . # . # .
+    . . . . .
+    # . # . #
+    . . . . .
+    `)
+        basic.pause(200)
+        basic.showLeds(`
+    # . # . #
+    . . . . .
+    . # . # .
+    . . . . . 
+    # . # . # 
+    `)
+        basic.pause(200)
+    }
+
+})
+
 }
